@@ -1,0 +1,7 @@
+# Reproducible local evidence mirrors and runtime environments.
+extracted/
+output/
+node_modules/
+.venv/
+__pycache__/
+.env
