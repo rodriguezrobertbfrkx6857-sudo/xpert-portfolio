@@ -1,0 +1,19 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gemma 4 · 真实修复案例复播</title><style>
+*{box-sizing:border-box}body{margin:0;background:#101826;color:#e8eff8;font:17px/1.65 "Microsoft YaHei",sans-serif}main{max-width:1120px;margin:36px auto;padding:0 32px}.tag{color:#a3d9cd;font-size:14px;letter-spacing:2px}h1{font-size:34px;margin:9px 0}p{color:#b9c8da}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:25px 0}.card,.panel{background:#1c2a3d;border:1px solid #34445a;border-radius:12px;padding:20px}.card b{display:block;color:#a5ebce;font-size:28px}.card span{font-size:14px;color:#b9c8da}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}h2{font-size:21px;margin:0 0 16px}pre{white-space:pre-wrap;font:14px/1.8 Consolas,monospace;background:#111c2b;padding:15px;border-radius:8px;overflow-wrap:anywhere}button{background:#a5ebce;color:#10261d;border:0;border-radius:6px;padding:10px 18px;margin:15px 8px 0 0;cursor:pointer}.note{font-size:14px;color:#c2b295}.hash{font:12px/1.6 Consolas,monospace;overflow-wrap:anywhere}footer{font-size:13px;color:#99adc5;margin-top:20px}@media(max-width:750px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}}
+</style><main><div class="tag">GEMMA 4 DEVELOPER AGENT · PUBLIC TECHNICAL SHOWCASE</div><h1>把一次真实修复讲清楚</h1><p>G7 / Gemma 4 12B / fastapi_14301 · 历史脱敏证据复播，非实时推理</p>
+<div class="cards"><div class="card"><b>11 passed</b><span>一个任务的测试数量</span></div><div class="card"><b>1976</b><span>两次真实调用的总 token</span></div><div class="card"><b>24.006 s</b><span>流水线，不含模型加载</span></div><div class="card"><b>1 个任务</b><span>不外推总体成功率</span></div></div>
+<div class="grid"><section class="panel"><h2 id="stage"></h2><p id="detail"></p><button onclick="step(-1)">上一步</button><button onclick="step(1)">下一步</button><p id="position" class="note"></p><p class="note">这是可复播证据页。它不会调用模型、执行评分或生成新的成绩。</p></section><section class="panel"><h2>冻结候选 · 单行参数传递</h2><pre>--- a/fastapi/dependencies/utils.py
++++ b/fastapi/dependencies/utils.py
+@@ -129,7 +129,7 @@
+     if isinstance(depends, params.Security) and depends.scopes:
+         use_security_scopes.extend(depends.scopes)
+     return get_dependant(
+-        path=path, call=depends.dependency, security_scopes=use_security_scopes
++        path=path, call=depends.dependency, security_scopes=use_security_scopes, scope=depends.scope
+     )
+ 
+ 
+</pre><div class="hash">Patch SHA-256<br>98de007c70f9a0db6d690a44a4aa99b47f10efffddbd7762def79ee9499f6602</div></section></div>
+<footer>原始官方评分日志 SHA-256：<span class="hash">2b6c2bac55747b17cc97ceb2a2164714f99a8e33a33253fece2d68483f6e9f14</span><br>FastAPI 上下文遵守 MIT；社区基线、官方框架和个人贡献分别署名。完整字段见 case_evidence.json。</footer></main>
+<script>const stages=[["01 · 正常任务输入", "历史任务 fastapi_14301。输入为 issue 与固定源码；页面不重新分发任务全文。"], ["02 · 定位与上下文", "历史定位结果：fastapi/dependencies/utils.py。按定义名加权，提供有限源码上下文。"], ["03 · 模型候选", "真实 12B 服务生成 2 个候选；服务 usage 合计 1976 token。这里没有 Agent 工具调用，不能把两次请求当作工具调用。"], ["04 · 补丁冻结", "两个候选均可应用且通过完整文件 AST 检查；按确定性规则冻结 candidate_0，再进入评分。"], ["05 · 独立评测", "历史 empty 控制失败，reference 控制通过；候选官方 combined verification 报告 11 passed、exit 0、resolved=true。"], ["06 · 解释边界", "这是一个已知任务的真实成功案例。不能推出未知任务成功率、G11 提升、LoRA 提分或任何奖项。"]];let current=4;function render(){document.getElementById('stage').textContent=stages[current][0];document.getElementById('detail').textContent=stages[current][1];document.getElementById('position').textContent=`${current+1} / ${stages.length} · 所有阶段来自历史记录`;}function step(n){current=Math.max(0,Math.min(stages.length-1,current+n));render();}render();</script></html>
