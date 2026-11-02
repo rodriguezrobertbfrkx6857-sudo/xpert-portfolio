@@ -1,0 +1,23 @@
+{
+  "task_id": "fastapi_14301",
+  "model": "Gemma 4 12B QAT / G7 Agentless",
+  "mode": "历史脱敏证据复播；当前页面不会启动模型或测试",
+  "base_commit": "972a967d5d3fa24d450637c36c6b7ad1f1d8c1b6",
+  "patch_sha256": "98de007c70f9a0db6d690a44a4aa99b47f10efffddbd7762def79ee9499f6602",
+  "log_sha256": "2b6c2bac55747b17cc97ceb2a2164714f99a8e33a33253fece2d68483f6e9f14",
+  "model_requests": 2,
+  "total_tokens": 1976,
+  "pipeline_seconds": 24.006,
+  "verification_seconds": 3.1267746570000554,
+  "resolved": true,
+  "passed_tests": 11,
+  "evidence_kind": "official_harness_combined_verification_not_separate_p2p_f2p",
+  "tool_calls": 0,
+  "limitations": [
+    "单个已知开发任务，不是 G11 结果或整体成功率",
+    "1976 token 为两次服务 usage 之和",
+    "流水线时间不含安装、排队与模型加载",
+    "原始完整日志在私有档案；此包仅有脱敏摘要和哈希",
+    "任务历史上已暴露，不能再作为未接触确认集"
+  ]
+}
