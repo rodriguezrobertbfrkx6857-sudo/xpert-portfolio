@@ -30,3 +30,10 @@ HTML 使用 Chromium 生成 PDF；依赖路径、测试命令和本次结果记�
 ```
 
 渲染前请先执行 PDF skill 要求的 artifact-operation 标记命令；最终交付前还应重新运行页数、文本、元数据、文件大小和逐页 PNG 检查。原项目目录保持只读。
+
+## Gemma 4 编程智能体 · 仓库修复与可信评测
+
+- [公开展示与源码](projects/gemma4-coding-agent/README.md)：事务式代码编辑、源码版本校验、补丁/独立回执校验的选定工具与合成测试。
+- [历史 FastAPI 修复案例](projects/gemma4-coding-agent/demo/index.html)：一个已知任务、11 项测试通过的离线记录复播；不是当前 G11 的成功率或实时模型演示。
+
+此展示来自独立私有研究项目的脱敏筛选版本；未公开任务数据、模型权重或完整实验轨迹。私有项目仓库仍保持私有。
